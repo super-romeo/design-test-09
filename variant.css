@@ -38,3 +38,36 @@ footer .muted { color: var(--muted); }
 @media (max-width: 1023px) { .nav__links { display: flex; overflow-x: auto; scrollbar-width: none; } }
 /* a phone: the row's link (a value cell narrowed to 11ch by the kit) goes under its line instead of wrapping in three */
 @media (max-width: 479px) { .rows__value { grid-column: 1; grid-row: auto; max-width: none; text-align: left; } }
+
+/* design test (brief 6): the same content on every layout.
+   The hero picture (3:2, the kit's photo frame) stands in the statement's empty right side on a desktop and under
+   the words below 1024, where the hero grows with it */
+.hero--statement .hero__pic { --ratio: 66.667%; margin-top: var(--s-6); }
+@media (min-width: 1024px) {
+  .hero--statement .hero__in { position: relative; }
+  .hero--statement .hero__pic { position: absolute; right: 0; top: 0; width: 40%; margin: 0; }
+}
+@media (max-width: 1023px) { main > .hero--statement { height: auto; min-height: 100vh; min-height: 100svh; } }
+/* the four cards are the list's rows: the picture first in each row (on top of it on a phone) */
+.rows--pic > li { grid-template-columns: 200px minmax(0, 1fr) auto; }
+.rows--pic .rows__pic { --ratio: 75%; grid-column: 1; grid-row: 1 / span 2; align-self: start; }
+.rows--pic .rows__name, .rows--pic > li > p { grid-column: 2; }
+.rows--pic .rows__value { grid-column: 3; }
+@media (max-width: 639px) {
+  .rows--pic > li { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-2); }
+  .rows--pic .rows__pic, .rows--pic .rows__name, .rows--pic > li > p, .rows--pic .rows__value { grid-column: 1; grid-row: auto; }
+  .rows--pic .rows__value { max-width: none; text-align: left; }
+  .rows--pic .rows__pic { margin-bottom: var(--s-2); }
+}
+.rows--pic > li { grid-template-rows: auto 1fr; }
+/* four rows with pictures are taller than one 1280x800 screen: the section grows with them */
+@media (min-width: 1280px) { main > #was { height: auto; min-height: 100vh; min-height: 100svh; } }
+/* a phone: the four words do not fit beside the name, so they wrap to a second line of the bar (all four in
+   reach, nothing to scroll); the bar is that line taller */
+@media (max-width: 639px) {
+  :root { --nav: 96px; }
+  header.nav .nav__bar { flex-wrap: wrap; align-content: center; row-gap: 0; }
+  header.nav .nav__links { flex: 0 0 100%; align-self: auto; height: 40px; overflow: visible; margin-left: calc(-1 * var(--s-2)); }
+}
+/* a narrow desktop: the picture narrower, so it stays clear of the headline's longest line */
+@media (min-width: 1024px) and (max-width: 1279px) { .hero--statement .hero__pic { width: 32%; } }
